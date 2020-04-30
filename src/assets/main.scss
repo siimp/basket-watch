@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+ 
+$slide-translate-x: 100vw;
+
+.slide-left-enter, .slide-right-leave-active {
+  transform: translate($slide-translate-x, 0);
+}
+
+.slide-left-leave-active, .slide-right-enter {
+  transform: translate(-$slide-translate-x, 0);
+}
+
+.slide-animation {
+  transition: transform .2s;
+  transition-timing-function: ease-out;
+}
+
+// Import only what you need from Bulma
+@import "bulma/sass/utilities/_all.sass";
+@import "bulma/sass/base/_all.sass";
+@import "bulma/sass/components/_all.sass";
+@import "bulma/sass/elements/_all.sass";
+@import "bulma/sass/form/_all.sass";
+@import "bulma/sass/grid/_all.sass";
+@import "bulma/sass/layout/_all.sass";
