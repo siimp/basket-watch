@@ -22,7 +22,7 @@
             <div class="columns">
               <div class="column">
                 <img class="logo" alt="Arvutitark logo" src="../assets/at-logo.png">
-                <img class="logo" alt="1a logo" src="../assets/1a-logo.png">
+                <!--<img class="logo" alt="1a logo" src="../assets/1a-logo.png">-->
               </div>
             </div>
           </div>
