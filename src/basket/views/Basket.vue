@@ -6,8 +6,13 @@
           <div class="level-item">
             <div class="container">
               <p class="title is-4 is-spaced">Basket</p>
-              <p class="subtitle uuid">
+              <p class="subtitle small">
                 <abbr :title="$route.params.uuid">{{ $route.params.uuid }}</abbr>
+              </p>
+              <p class="subtitle small">
+                <span>Basket will be deleted at {{ this.willBeDeletedAt }}</span>
+                &nbsp;
+                <ion-icon name="refresh-outline" size="small" @click="refreshWillBeDeletedAt()"></ion-icon>
               </p>
             </div>
           </div>
@@ -66,6 +71,7 @@ function refreshData (vm) {
       vm.total = response.data.priceHistory.price
       vm.min = response.data.priceHistory.priceMin
       vm.max = response.data.priceHistory.priceMax
+      vm.willBeDeletedAt = response.data.willBeDeletedAt
     })
 }
 
@@ -75,7 +81,8 @@ export default {
       basketItems: this.$route.meta.response.basketItems,
       total: this.$route.meta.response.priceHistory.price,
       min: this.$route.meta.response.priceHistory.priceMin,
-      max: this.$route.meta.response.priceHistory.priceMax
+      max: this.$route.meta.response.priceHistory.priceMax,
+      willBeDeletedAt: this.$route.meta.response.willBeDeletedAt
     }
   },
   methods: {
@@ -107,6 +114,12 @@ export default {
         return false
       }
       return total - min > 0
+    },
+    refreshWillBeDeletedAt: function () {
+      axios.get(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/refresh')
+        .then(response => {
+          refreshData(this)
+        })
     }
   }
 }
@@ -138,7 +151,7 @@ tbody tr td ion-icon {
 .quantity {
   text-align: right;
 }
-.subtitle.uuid {
+.subtitle.small {
   padding-top: 0.5em;
   font-size: 0.8em;
 }
