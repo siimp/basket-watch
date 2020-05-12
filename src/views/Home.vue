@@ -21,8 +21,8 @@
           <div class="container">
             <div class="columns">
               <div class="column">
-                <img class="logo" alt="Arvutitark logo" src="../assets/at-logo.png">
-                <!--<img class="logo" alt="1a logo" src="../assets/1a-logo.png">-->
+                <img class="logo" alt="Arvutitark logo" src="../assets/logo-at.png" />
+                <img class="logo" alt="1A logo" src="../assets/logo-1A.png" />
               </div>
             </div>
           </div>
