@@ -42,7 +42,7 @@
           <tr v-for="(basketItem, basketItemIndex) in basketItems" :key="basketItem.id">
             <td>
               <div class="columns">
-                <div class="column is-5">{{ basketItem.item.name.substring(0, 50) }}</div>
+                <div class="column is-5"><a :href="basketItem.item.url">{{ basketItem.item.name.substring(0, 50) }}</a></div>
                 <div class="column is-2"><span class="nowrap">Price: <span v-bind:class="{ 'has-text-success': isTotalLowerThanMin(basketItem.item.priceHistory.price, basketItem.item.priceHistory.priceMin), 'has-text-danger': isTotalHigherThanMin(basketItem.item.priceHistory.price, basketItem.item.priceHistory.priceMin) }">{{ basketItem.item.priceHistory.price }}</span> €</span></div>
                 <div class="column"><span class="nowrap">Min/Max: {{ basketItem.item.priceHistory.priceMin }} € / {{ basketItem.item.priceHistory.priceMax }} €</span></div>
                 <div class="column quantity"><span class="nowrap">Quantity: {{ basketItem.quantity }}</span></div>
