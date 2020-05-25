@@ -15,13 +15,19 @@
           </div>
       </div>
       <hr/>
-      <div class="control">
-          <button class="button is-info max-width" :disabled="!isValid()" @click="add">Add</button>
-      </div>
       <br/>
     </div>
   </div>
-  <button class="button is-success max-width bottom-button" @click="back">Back</button>
+  <div class="bottom max-width">
+    <div class="columns is-mobile is-12">
+      <div class="column is-5">
+        <button class="button is-success max-width" @click="back">Back</button>
+      </div>
+      <div class="column is-5 is-offset-2">
+        <button class="button is-info max-width" :disabled="!isValid()" @click="add">Add</button>
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -67,7 +73,7 @@ div.section {
 .max-height {
     height: 100%;
 }
-.bottom-button {
+.bottom {
   position: fixed;
   bottom: 0px;
 }
