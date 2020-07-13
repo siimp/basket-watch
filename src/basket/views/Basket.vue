@@ -12,13 +12,15 @@
               <p class="subtitle small">
                 <span>Basket will be deleted at {{ this.willBeDeletedAt }}</span>
                 &nbsp;
-                <ion-icon name="refresh-outline" size="small" @click="refreshWillBeDeletedAt()"></ion-icon>
+                <span class="fading-button">
+                  <ion-icon name="refresh-outline" size="small" @click="refreshWillBeDeletedAt()"></ion-icon>
+                </span>
               </p>
             </div>
           </div>
         </div>
         <div class="level-right">
-          <span class="icon">
+          <span class="icon fading-button">
             <ion-icon name="copy-outline" size="large" @click="copyUrlToClipboard"></ion-icon>
           </span>
         </div>
@@ -31,7 +33,7 @@
           <tr>
             <th>
               <div class="columns">
-                <div class="column is-7"><span class="nowrap">Total: <span class="value" v-bind:class="{ 'has-text-success': isTotalLowerThanMin(total, min), 'has-text-danger': isTotalHigherThanMin(total, min) }">{{ total }} €</span></span></div>
+                <div class="column is-7"><span class="nowrap">Total: <span class="value" v-bind:class="{ 'has-text-success': total === min, 'has-text-danger': total == max }">{{ total }} €</span></span></div>
                 <div class="column"><span class="nowrap">Min/Max: <span class="value">{{ min }} € / {{ max }} €</span></span></div>
               </div>
             </th>
@@ -43,7 +45,7 @@
             <td>
               <div class="columns">
                 <div class="column is-5"><a :href="basketItem.item.url">{{ basketItem.item.name.substring(0, 50) }}</a></div>
-                <div class="column is-2"><span class="nowrap">Price: <span v-bind:class="{ 'has-text-success': isTotalLowerThanMin(basketItem.item.priceHistory.price, basketItem.item.priceHistory.priceMin), 'has-text-danger': isTotalHigherThanMin(basketItem.item.priceHistory.price, basketItem.item.priceHistory.priceMin) }">{{ basketItem.item.priceHistory.price }}</span> €</span></div>
+                <div class="column is-2"><span class="nowrap">Price: <span v-bind:class="{ 'has-text-success': basketItem.item.priceHistory.price === basketItem.item.priceHistory.priceMin, 'has-text-danger': basketItem.item.priceHistory.price === basketItem.item.priceHistory.priceMax }">{{ basketItem.item.priceHistory.price }} €</span></span></div>
                 <div class="column"><span class="nowrap">Min/Max: {{ basketItem.item.priceHistory.priceMin }} € / {{ basketItem.item.priceHistory.priceMax }} €</span></div>
                 <div class="column quantity"><span class="nowrap">Quantity: {{ basketItem.quantity }}</span></div>
               </div>
@@ -103,18 +105,6 @@ export default {
           refreshData(this)
         })
     },
-    isTotalLowerThanMin: function (total, min) {
-      if (total === min) {
-        return false
-      }
-      return total - min < 0
-    },
-    isTotalHigherThanMin: function (total, min) {
-      if (total === min) {
-        return false
-      }
-      return total - min > 0
-    },
     refreshWillBeDeletedAt: function () {
       axios.get(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/refresh')
         .then(response => {
@@ -170,5 +160,13 @@ th .value {
 }
 table {
   width: 100%;
+}
+.fading-button:active {
+  animation: fading-button-animation 0.2s;
+}
+
+@keyframes fading-button-animation {
+  from  { opacity: 0.2; }
+  to { opacity: 0.8; }
 }
 </style>

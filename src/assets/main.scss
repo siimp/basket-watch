@@ -24,3 +24,7 @@ $slide-translate-x: 100vw;
 @import "bulma/sass/form/_all.sass";
 @import "bulma/sass/grid/_all.sass";
 @import "bulma/sass/layout/_all.sass";
+
+.button {
+  border-radius: 0px;
+}
