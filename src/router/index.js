@@ -22,9 +22,11 @@ const routes = [
         .then(response => {
           to.meta.response = response.data
           next()
+          addToLocalStorage(to.params.uuid)
         })
         .catch(() => {
           next('/')
+          removeFromLocalStorage(to.params.uuid)
         })
     }
   },
@@ -39,6 +41,31 @@ const routes = [
     redirect: '/'
   }
 ]
+
+const LOCAL_STORAGE_KEY_BASKETS = 'baskets'
+
+function addToLocalStorage (uuid) {
+  let baskets = []
+  const basketsFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY_BASKETS)
+  if (basketsFromLocalStorage) {
+    baskets = JSON.parse(basketsFromLocalStorage)
+  }
+  if (baskets.indexOf(uuid) === -1) {
+    baskets.push(uuid)
+    localStorage.setItem(LOCAL_STORAGE_KEY_BASKETS, JSON.stringify(baskets))
+  }
+}
+
+function removeFromLocalStorage (uuid) {
+  const basketsFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY_BASKETS)
+  if (basketsFromLocalStorage) {
+    const baskets = JSON.parse(basketsFromLocalStorage)
+    if (baskets.indexOf(uuid) > -1) {
+      baskets.splice(baskets.indexOf(uuid), 1)
+      localStorage.setItem(LOCAL_STORAGE_KEY_BASKETS, JSON.stringify(baskets))
+    }
+  }
+}
 
 const router = new VueRouter({
   mode: 'history',

@@ -14,6 +14,13 @@
     <div class="has-text-centered">
         <button class="button is-success" @click="create">Create a new basket</button>
     </div>
+    <div class="baskets-list has-text-centered">
+      <ul>
+        <li v-for="basket in baskets()" :key="basket">
+          <a :href="'/basket/' + basket">{{basket}}</a>
+        </li>
+      </ul>
+    </div>
     <div class="platforms has-text-centered">
       <div>
         <section class="section">
@@ -43,6 +50,14 @@ export default {
         .then(response => {
           this.$router.push('/basket/' + response.data.uuid)
         })
+    },
+    baskets: function () {
+      let baskets = []
+      const basketsFromLocalStorage = localStorage.getItem('baskets')
+      if (basketsFromLocalStorage) {
+        baskets = JSON.parse(basketsFromLocalStorage)
+      }
+      return baskets
     }
   }
 }
@@ -59,5 +74,8 @@ section.section {
   max-height:20px;
   margin-right: 1em;
   box-shadow: 5px 5px 2px gray;
+}
+.baskets-list {
+  padding-top: 0.5em;
 }
 </style>
