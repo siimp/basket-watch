@@ -2,7 +2,9 @@
   <div>
     <div class="header">
       <div class="header-left">
-        <span class="title is-4">Basket</span>
+        <span class="title is-4">
+          <router-link to="/">Basket Watch</router-link>
+        </span>
       </div>
       <div class="header-right">
         <router-link :to="'/basket/' + this.$route.params.uuid + '/notification'">

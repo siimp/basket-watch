@@ -1,0 +1,6 @@
+HTTP/1.1 204 No Content
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: *
+Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE
+Access-Control-Max-Age: 86400

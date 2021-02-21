@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <router-link v-show="hasStoredBaskets" to="/baskets">
+      <router-link v-show="hasStoredBaskets()" to="/baskets">
         <ion-icon name="bookmarks-sharp"></ion-icon>
       </router-link>
     </div>
@@ -50,7 +50,7 @@ export default {
         })
     },
     hasStoredBaskets: function () {
-      return !!localStorage.getItem('baskets')
+      return !!localStorage.getItem('baskets') && !!JSON.parse(localStorage.getItem('baskets')) && JSON.parse(localStorage.getItem('baskets')).length > 0
     }
   }
 }

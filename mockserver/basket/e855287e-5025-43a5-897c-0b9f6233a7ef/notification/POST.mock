@@ -5,6 +5,4 @@ Access-Control-Allow-Headers: *
 Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE
 Access-Control-Max-Age: 86400
 
-{
-    "uuid":"e855287e-5025-43a5-897c-0b9f6233a7ef"
-}
+{}

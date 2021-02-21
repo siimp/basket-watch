@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -42,7 +44,13 @@ export default {
       return !!this.email
     },
     subscribe: function () {
-      console.log('subscribe', this.email)
+      axios.post(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/notification', { email: this.email })
+        .then(response => {
+          alert('subscription successful')
+        })
+        .catch(() => {
+          alert('subscription failed')
+        })
     }
   }
 }
