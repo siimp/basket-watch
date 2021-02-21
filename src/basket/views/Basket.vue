@@ -1,29 +1,16 @@
 <template>
   <div>
-    <div class="basket-heading">
-      <div class="level is-mobile">
-        <div class="level-left">
-          <div class="level-item">
-            <div class="container">
-              <p class="title is-4 is-spaced">Basket</p>
-              <p class="subtitle small">
-                <abbr :title="$route.params.uuid">{{ $route.params.uuid }}</abbr>
-              </p>
-              <p class="subtitle small">
-                <span>Basket will be deleted at {{ this.willBeDeletedAt }}</span>
-                &nbsp;
-                <span class="fading-button">
-                  <ion-icon name="refresh-outline" size="small" @click="refreshWillBeDeletedAt()"></ion-icon>
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="level-right">
-          <span class="icon fading-button">
-            <ion-icon name="copy-outline" size="large" @click="copyUrlToClipboard"></ion-icon>
-          </span>
-        </div>
+    <div class="header">
+      <div class="header-left">
+        <span class="title is-4">Basket</span>
+      </div>
+      <div class="header-right">
+        <router-link :to="'/basket/' + this.$route.params.uuid + '/notification'">
+          <ion-icon name="notifications-sharp"></ion-icon>
+        </router-link>
+        <a href="#">
+          <ion-icon name="menu-sharp"></ion-icon>
+        </a>
       </div>
     </div>
     <hr/>
@@ -116,8 +103,33 @@ export default {
 </script>
 
 <style scoped>
-.basket-heading {
-  padding: 1em;
+.header {
+  font-size: 1.5em;
+}
+.header-left {
+  text-align: left;
+  width: 50%;
+  display: inline-block;
+  padding: 0.5em;
+}
+.header-right {
+  text-align: right;
+  width: 50%;
+  display: inline-block;
+  padding: 0.5em;
+}
+.header-right a {
+  margin-left: 1em;
+}
+.header a:link {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: auto;
+}
+.header a:visited {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: auto;
 }
 hr {
   margin-top: 0;
@@ -141,10 +153,6 @@ tbody tr td ion-icon {
 .quantity {
   text-align: right;
 }
-.subtitle.small {
-  padding-top: 0.5em;
-  font-size: 0.8em;
-}
 th .value {
   font-weight: normal;
 }
@@ -160,13 +168,5 @@ th .value {
 }
 table {
   width: 100%;
-}
-.fading-button:active {
-  animation: fading-button-animation 0.2s;
-}
-
-@keyframes fading-button-animation {
-  from  { opacity: 0.2; }
-  to { opacity: 0.8; }
 }
 </style>

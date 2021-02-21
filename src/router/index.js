@@ -37,6 +37,12 @@ const routes = [
     meta: { flowOrder: 3 }
   },
   {
+    path: '/basket/:uuid/notification',
+    name: 'Notification',
+    component: () => import('../notification/views/Notification.vue'),
+    meta: { flowOrder: 3 }
+  },
+  {
     path: '/baskets',
     name: 'Baskets',
     component: () => import('../basket/views/Baskets.vue'),

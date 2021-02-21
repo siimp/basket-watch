@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .header {
   text-align: left;
   font-size: 1.5em;
