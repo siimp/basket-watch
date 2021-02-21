@@ -37,6 +37,12 @@ const routes = [
     meta: { flowOrder: 3 }
   },
   {
+    path: '/baskets',
+    name: 'Baskets',
+    component: () => import('../basket/views/Baskets.vue'),
+    meta: { flowOrder: 2 }
+  },
+  {
     path: '*',
     redirect: '/'
   }

@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="header">
+      <router-link v-show="hasStoredBaskets" to="/baskets">
+        <ion-icon name="bookmarks-sharp"></ion-icon>
+      </router-link>
+    </div>
     <div>
       <section class="section">
         <div class="container has-text-centered">
@@ -13,13 +18,6 @@
 
     <div class="has-text-centered">
         <button class="button is-success" @click="create">Create a new basket</button>
-    </div>
-    <div class="baskets-list has-text-centered">
-      <ul>
-        <li v-for="basket in baskets()" :key="basket">
-          <a :href="'/basket/' + basket">{{basket}}</a>
-        </li>
-      </ul>
     </div>
     <div class="platforms has-text-centered">
       <div>
@@ -51,13 +49,8 @@ export default {
           this.$router.push('/basket/' + response.data.uuid)
         })
     },
-    baskets: function () {
-      let baskets = []
-      const basketsFromLocalStorage = localStorage.getItem('baskets')
-      if (basketsFromLocalStorage) {
-        baskets = JSON.parse(basketsFromLocalStorage)
-      }
-      return baskets
+    hasStoredBaskets: function () {
+      return !!localStorage.getItem('baskets')
     }
   }
 }
@@ -65,7 +58,7 @@ export default {
 
 <style scoped>
 section.section {
-  padding-top: 8em;
+  padding-top: 4em;
 }
 .platforms {
   padding-top: 1em;
@@ -75,7 +68,21 @@ section.section {
   margin-right: 1em;
   box-shadow: 5px 5px 2px gray;
 }
-.baskets-list {
-  padding-top: 0.5em;
+.header {
+  text-align: right;
+  font-size: 1.5em;
+}
+.header a:link {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: auto;
+}
+.header a:visited {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: auto;
+}
+.header ion-icon {
+  padding: 0.5em;
 }
 </style>
