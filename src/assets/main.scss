@@ -19,12 +19,17 @@ $slide-translate-x: 100vw;
 // Import only what you need from Bulma
 @import "bulma/sass/utilities/_all.sass";
 @import "bulma/sass/base/_all.sass";
-@import "bulma/sass/components/_all.sass";
 @import "bulma/sass/elements/_all.sass";
 @import "bulma/sass/form/_all.sass";
+@import "bulma/sass/components/_all.sass";
 @import "bulma/sass/grid/_all.sass";
+@import "bulma/sass/helpers/_all.sass";
 @import "bulma/sass/layout/_all.sass";
 
+
 .button {
+  border-radius: 0px;
+}
+.card {
   border-radius: 0px;
 }

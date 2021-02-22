@@ -3,8 +3,9 @@
     <div class="header">
       <div class="header-left">
         <span>
-          <a href="#">
-            <ion-icon name="menu-sharp"></ion-icon>
+          <a href="#" v-on:click="menuOpen = !menuOpen">
+            <ion-icon v-if="!menuOpen" name="menu-sharp"></ion-icon>
+            <ion-icon v-if="menuOpen" name="close-sharp"></ion-icon>
           </a>
         </span>
         <span class="title is-4">
@@ -15,6 +16,22 @@
         <router-link :to="'/basket/' + this.$route.params.uuid + '/notification'">
           <ion-icon name="notifications-sharp"></ion-icon>
         </router-link>
+      </div>
+    </div>
+    <div v-show="menuOpen" class="card">
+      <div class="card-content">
+        <div class="content">
+          <div class="menu">
+            <div class="menu-list">
+              <div>
+                <a href="#" v-on:click="deleteBasket">
+                  <ion-icon name="trash-outline"></ion-icon>
+                  Delete
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <hr/>
@@ -75,7 +92,8 @@ export default {
       total: this.$route.meta.response.priceHistory.price,
       min: this.$route.meta.response.priceHistory.priceMin,
       max: this.$route.meta.response.priceHistory.priceMax,
-      willBeDeletedAt: this.$route.meta.response.willBeDeletedAt
+      willBeDeletedAt: this.$route.meta.response.willBeDeletedAt,
+      menuOpen: false
     }
   },
   methods: {
@@ -100,6 +118,12 @@ export default {
       axios.get(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/refresh')
         .then(response => {
           refreshData(this)
+        })
+    },
+    deleteBasket: function () {
+      axios.delete(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid)
+        .then(response => {
+          this.$router.push('/')
         })
     }
   }
@@ -139,6 +163,12 @@ export default {
     bottom: 4px;
     position: relative;
     margin-left: 0.5em;
+}
+.card {
+    position: absolute;
+    width: 80%;
+    min-height: 50%;
+    z-index: 1;
 }
 hr {
   margin-top: 0;
