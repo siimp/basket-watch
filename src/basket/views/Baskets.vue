@@ -52,4 +52,9 @@ export default {
 .baskets-list {
   padding-top: 0.5em;
 }
+li {
+  margin: 1em;
+  padding: 0.5em;
+  background-color: #d3d3d329;
+}
 </style>

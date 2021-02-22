@@ -57,16 +57,11 @@ export default {
 </script>
 
 <style scoped>
-section.section {
-  padding-top: 4em;
-}
-.platforms {
-  padding-top: 1em;
-}
 .column img.logo {
-  max-height:20px;
-  margin-right: 1em;
-  box-shadow: 5px 5px 2px gray;
+  max-height: 1.3em;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+  box-shadow: 2px 2px 2px lightgray;
 }
 .header {
   text-align: right;

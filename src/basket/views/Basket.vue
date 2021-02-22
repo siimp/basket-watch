@@ -2,6 +2,11 @@
   <div>
     <div class="header">
       <div class="header-left">
+        <span>
+          <a href="#">
+            <ion-icon name="menu-sharp"></ion-icon>
+          </a>
+        </span>
         <span class="title is-4">
           <router-link to="/">Basket Watch</router-link>
         </span>
@@ -10,9 +15,6 @@
         <router-link :to="'/basket/' + this.$route.params.uuid + '/notification'">
           <ion-icon name="notifications-sharp"></ion-icon>
         </router-link>
-        <a href="#">
-          <ion-icon name="menu-sharp"></ion-icon>
-        </a>
       </div>
     </div>
     <hr/>
@@ -110,13 +112,13 @@ export default {
 }
 .header-left {
   text-align: left;
-  width: 50%;
+  width: 70%;
   display: inline-block;
   padding: 0.5em;
 }
 .header-right {
   text-align: right;
-  width: 50%;
+  width: 30%;
   display: inline-block;
   padding: 0.5em;
 }
@@ -132,6 +134,11 @@ export default {
     text-decoration: inherit;
     color: inherit;
     cursor: auto;
+}
+.header span.title {
+    bottom: 4px;
+    position: relative;
+    margin-left: 0.5em;
 }
 hr {
   margin-top: 0;
