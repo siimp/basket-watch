@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import axios from 'axios'
 import * as bulmaToast from 'bulma-toast'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,8 @@ const routes = [
     beforeEnter: (to, from, next) => {
       axios.get(process.env.VUE_APP_API_ENDPOINT + '/basket/' + to.params.uuid)
         .then(response => {
-          to.meta.response = response.data
+          // to.meta.response = response.data
+          store.dispatch('setBasket', response.data)
           next()
           addToLocalStorage(to.params.uuid)
         })
