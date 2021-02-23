@@ -4,17 +4,17 @@
       <div class="header-left">
         <span>
           <a href="#" v-on:click="menuOpen = !menuOpen">
-            <ion-icon v-if="!menuOpen" name="menu-sharp"></ion-icon>
-            <ion-icon v-if="menuOpen" name="close-sharp"></ion-icon>
+            <ion-icon class="is-clickable" v-if="!menuOpen" name="menu-sharp"></ion-icon>
+            <ion-icon class="is-clickable" v-if="menuOpen" name="close-sharp"></ion-icon>
           </a>
         </span>
         <span class="title is-4">
-          <router-link to="/">Basket Watch</router-link>
+          <router-link class="is-clickable" to="/">Basket Watch</router-link>
         </span>
       </div>
       <div class="header-right">
         <router-link :to="'/basket/' + this.$route.params.uuid + '/notification'">
-          <ion-icon name="notifications-sharp"></ion-icon>
+          <ion-icon class="is-clickable" name="notifications-sharp"></ion-icon>
         </router-link>
       </div>
     </div>
@@ -59,7 +59,7 @@
               </div>
             </td>
             <td>
-              <ion-icon name="close-circle-outline" size="small" @click="deleteBasketItem(basketItem, basketItemIndex)"></ion-icon>
+              <ion-icon class="is-clickable" name="trash-outline" @click="deleteBasketItem(basketItem, basketItemIndex)"></ion-icon>
             </td>
           </tr>
         </tbody>

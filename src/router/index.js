@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import axios from 'axios'
+import * as bulmaToast from 'bulma-toast'
 
 Vue.use(VueRouter)
 
@@ -24,9 +25,17 @@ const routes = [
           next()
           addToLocalStorage(to.params.uuid)
         })
-        .catch(() => {
+        .catch((error) => {
+          bulmaToast.toast({
+            message: `Failed to open basket ${to.params.uuid} - ${error.response.statusText}`,
+            type: 'is-danger'
+          })
+
+          if (error.response.status === 404) {
+            removeFromLocalStorage(to.params.uuid)
+          }
+
           next('/')
-          removeFromLocalStorage(to.params.uuid)
         })
     }
   },

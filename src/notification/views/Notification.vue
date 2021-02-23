@@ -2,7 +2,7 @@
 <div>
   <div class="header">
     <router-link :to="'/basket/' + this.$route.params.uuid">
-      <ion-icon name="arrow-back-sharp"></ion-icon>
+      <ion-icon class="is-clickable" name="arrow-back-sharp"></ion-icon>
     </router-link>
   </div>
   <div class="has-text-centered">
@@ -32,6 +32,7 @@
 
 <script>
 import axios from 'axios'
+import * as bulmaToast from 'bulma-toast'
 
 export default {
   data () {
@@ -46,10 +47,13 @@ export default {
     subscribe: function () {
       axios.post(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/notification', { email: this.email })
         .then(response => {
-          alert('subscription successful')
+          bulmaToast.toast({ message: 'Subscription successful' })
         })
         .catch(() => {
-          alert('subscription failed')
+          bulmaToast.toast({
+            message: 'Subscription failed',
+            type: 'is-danger'
+          })
         })
     }
   }

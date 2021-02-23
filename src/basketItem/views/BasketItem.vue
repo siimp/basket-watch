@@ -2,7 +2,7 @@
 <div>
   <div class="header">
     <router-link :to="'/basket/' + this.$route.params.uuid">
-      <ion-icon name="arrow-back-sharp"></ion-icon>
+      <ion-icon class="is-clickable" name="arrow-back-sharp"></ion-icon>
     </router-link>
   </div>
   <div class="has-text-centered">
@@ -38,6 +38,7 @@
 
 <script>
 import axios from 'axios'
+import * as bulmaToast from 'bulma-toast'
 
 export default {
   data () {
@@ -54,8 +55,15 @@ export default {
       if (this.isValid()) {
         axios.post(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/basket-item', { url: this.url, quantity: this.quantity })
           .then(response => {
+            bulmaToast.toast({ message: 'Item added to basket' })
             this.url = ''
             this.quantity = 1
+          })
+          .catch((error) => {
+            bulmaToast.toast({
+              message: 'Adding item failed ' + error,
+              type: 'is-danger'
+            })
           })
       }
     }

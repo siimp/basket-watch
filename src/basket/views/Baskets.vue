@@ -2,16 +2,18 @@
 <div>
   <div class="header">
     <router-link to="/">
-      <ion-icon name="arrow-back-sharp"></ion-icon>
+      <ion-icon class="is-clickable" name="arrow-back-sharp"></ion-icon>
     </router-link>
   </div>
   <div class="baskets-list has-text-centered">
     <h2 class="title">Stored Baskets</h2>
-    <ul>
-      <li v-for="basket in baskets()" :key="basket">
-        <router-link :to="'/basket/' + basket">{{ basket }}</router-link>
-      </li>
-    </ul>
+    <div class="menu">
+      <ul class="menu-list">
+          <li v-for="basket in baskets()" :key="basket">
+            <router-link :to="'/basket/' + basket">{{ basket }}</router-link>
+          </li>
+      </ul>
+    </div>
   </div>
 </div>
 </template>
@@ -48,13 +50,5 @@ export default {
 }
 .header ion-icon {
   padding: 0.5em;
-}
-.baskets-list {
-  padding-top: 0.5em;
-}
-li {
-  margin: 1em;
-  padding: 0.5em;
-  background-color: #d3d3d329;
 }
 </style>
