@@ -61,7 +61,7 @@ export default {
           })
           .catch((error) => {
             bulmaToast.toast({
-              message: 'Adding item failed ' + error,
+              message: `Adding item failed - ${error.response ? error.response.statusText : error}`,
               type: 'is-danger'
             })
           })

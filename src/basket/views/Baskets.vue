@@ -9,7 +9,7 @@
     <h2 class="title">Stored Baskets</h2>
     <div class="menu">
       <ul class="menu-list">
-          <li v-for="basket in baskets()" :key="basket">
+          <li v-for="basket in baskets" :key="basket">
             <router-link :to="'/basket/' + basket">{{ basket }}</router-link>
           </li>
       </ul>
@@ -20,14 +20,9 @@
 
 <script>
 export default {
-  methods: {
-    baskets: function () {
-      let baskets = []
-      const basketsFromLocalStorage = localStorage.getItem('baskets')
-      if (basketsFromLocalStorage) {
-        baskets = JSON.parse(basketsFromLocalStorage)
-      }
-      return baskets
+  data: function () {
+    return {
+      baskets: this.$store.state.bookmarks
     }
   }
 }

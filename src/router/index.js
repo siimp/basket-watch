@@ -22,19 +22,18 @@ const routes = [
     beforeEnter: (to, from, next) => {
       axios.get(process.env.VUE_APP_API_ENDPOINT + '/basket/' + to.params.uuid)
         .then(response => {
-          // to.meta.response = response.data
           store.dispatch('setBasket', response.data)
+          store.dispatch('addBookmark', to.params.uuid)
           next()
-          addToLocalStorage(to.params.uuid)
         })
         .catch((error) => {
           bulmaToast.toast({
-            message: `Failed to open basket ${to.params.uuid} - ${error.response.statusText}`,
+            message: `Failed to open basket ${to.params.uuid} - ${error.response ? error.response.statusText : error}`,
             type: 'is-danger'
           })
 
-          if (error.response.status === 404) {
-            removeFromLocalStorage(to.params.uuid)
+          if (error.response && error.response.status === 404) {
+            store.dispatch('deleteBookmark', to.params.uuid)
           }
 
           next('/')
@@ -69,31 +68,6 @@ const routes = [
     redirect: '/'
   }
 ]
-
-const LOCAL_STORAGE_KEY_BASKETS = 'baskets'
-
-function addToLocalStorage (uuid) {
-  let baskets = []
-  const basketsFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY_BASKETS)
-  if (basketsFromLocalStorage) {
-    baskets = JSON.parse(basketsFromLocalStorage)
-  }
-  if (baskets.indexOf(uuid) === -1) {
-    baskets.push(uuid)
-    localStorage.setItem(LOCAL_STORAGE_KEY_BASKETS, JSON.stringify(baskets))
-  }
-}
-
-function removeFromLocalStorage (uuid) {
-  const basketsFromLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY_BASKETS)
-  if (basketsFromLocalStorage) {
-    const baskets = JSON.parse(basketsFromLocalStorage)
-    if (baskets.indexOf(uuid) > -1) {
-      baskets.splice(baskets.indexOf(uuid), 1)
-      localStorage.setItem(LOCAL_STORAGE_KEY_BASKETS, JSON.stringify(baskets))
-    }
-  }
-}
 
 const router = new VueRouter({
   mode: 'history',

@@ -40,6 +40,7 @@
 
 <script>
 import axios from 'axios'
+import * as bulmaToast from 'bulma-toast'
 
 export default {
   methods: {
@@ -48,9 +49,15 @@ export default {
         .then(response => {
           this.$router.push('/basket/' + response.data.uuid)
         })
+        .catch(error => {
+          bulmaToast.toast({
+            message: `Failed to create basket - ${error.response ? error.response.statusText : error}`,
+            type: 'is-danger'
+          })
+        })
     },
     hasStoredBaskets: function () {
-      return !!localStorage.getItem('baskets') && !!JSON.parse(localStorage.getItem('baskets')) && JSON.parse(localStorage.getItem('baskets')).length > 0
+      return this.$store.state.bookmarks.length > 0
     }
   }
 }

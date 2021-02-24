@@ -73,7 +73,6 @@
 
 <script>
 import axios from 'axios'
-import store from '../../store'
 
 function refreshData (vm) {
   axios.get(process.env.VUE_APP_API_ENDPOINT + '/basket/' + vm.$route.params.uuid)
@@ -89,11 +88,11 @@ function refreshData (vm) {
 export default {
   data () {
     return {
-      basketItems: store.state.basket.basketItems,
-      total: store.state.basket.priceHistory.price,
-      min: store.state.basket.priceHistory.priceMin,
-      max: store.state.basket.priceHistory.priceMax,
-      willBeDeletedAt: store.state.basket.willBeDeletedAt,
+      basketItems: this.$store.state.basket.basketItems,
+      total: this.$store.state.basket.priceHistory.price,
+      min: this.$store.state.basket.priceHistory.priceMin,
+      max: this.$store.state.basket.priceHistory.priceMax,
+      willBeDeletedAt: this.$store.state.basket.willBeDeletedAt,
       menuOpen: false
     }
   },
