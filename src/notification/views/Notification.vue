@@ -10,10 +10,14 @@
   </div>
   <div class="section">
     <div>
+      <p v-if="this.$store.state.basket.notification.subscribed">Current subscription is to <strong>{{this.$store.state.basket.notification.email}}</strong></p>
+      <br>
+    </div>
+    <div>
       <div class="field">
         <label class="label">E-mail</label>
         <div class="control">
-            <input class="input" type="email" placeholder="email@gmail.com" v-model="email">
+            <input class="input" type="email" placeholder="email@gmail.com" v-model="emailInput">
         </div>
       </div>
       <hr/>
@@ -23,6 +27,7 @@
   <div class="bottom max-width">
     <div class="columns is-mobile is-12">
       <div class="column">
+        <button v-if="this.$store.state.basket.notification.subscribed" class="button is-danger max-width" @click="unsubscribe">Unsubscribe</button>
         <button class="button is-info max-width" :disabled="!isValid()" @click="subscribe">Subscribe</button>
       </div>
     </div>
@@ -31,30 +36,22 @@
 </template>
 
 <script>
-import axios from 'axios'
-import * as bulmaToast from 'bulma-toast'
-
 export default {
   data () {
     return {
-      email: ''
+      emailInput: ''
     }
   },
+
   methods: {
-    isValid: function () {
-      return !!this.email
+    isValid () {
+      return !!this.emailInput
     },
-    subscribe: function () {
-      axios.post(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/notification', { email: this.email })
-        .then(response => {
-          bulmaToast.toast({ message: 'Subscription successful' })
-        })
-        .catch(() => {
-          bulmaToast.toast({
-            message: 'Subscription failed',
-            type: 'is-danger'
-          })
-        })
+    subscribe () {
+      this.$store.dispatch('subscribeNotifications', this.emailInput)
+    },
+    unsubscribe () {
+      this.$store.dispatch('unsubscribeNotifications')
     }
   }
 }

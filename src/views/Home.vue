@@ -34,7 +34,6 @@
         </section>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -44,9 +43,10 @@ import * as bulmaToast from 'bulma-toast'
 
 export default {
   methods: {
-    create: function () {
+    create () {
       axios.post(process.env.VUE_APP_API_ENDPOINT + '/basket')
         .then(response => {
+          this.$store.dispatch('createNewBasket')
           this.$router.push('/basket/' + response.data.uuid)
         })
         .catch(error => {
@@ -56,7 +56,7 @@ export default {
           })
         })
     },
-    hasStoredBaskets: function () {
+    hasStoredBaskets () {
       return this.$store.state.bookmarks.length > 0
     }
   }

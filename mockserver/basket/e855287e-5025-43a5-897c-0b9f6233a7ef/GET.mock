@@ -7,6 +7,10 @@ Access-Control-Max-Age: 86400
 
 {
     "uuid":"e855287e-5025-43a5-897c-0b9f6233a7ef",
+    "notification": {
+        "email": "asd@asd.ee",
+        "subscribed": true
+    },
     "priceHistory":{
         "price":0,
         "priceAt":"2021-02-13T20:40:36.763Z",

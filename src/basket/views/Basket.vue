@@ -41,15 +41,15 @@
           <tr>
             <th>
               <div class="columns">
-                <div class="column is-7"><span class="nowrap">Total: <span class="value" v-bind:class="{ 'has-text-success': total === min, 'has-text-danger': total == max }">{{ total }} €</span></span></div>
-                <div class="column"><span class="nowrap">Min/Max: <span class="value">{{ min }} € / {{ max }} €</span></span></div>
+                <div class="column is-7"><span class="nowrap">Total: <span class="value" v-bind:class="{ 'has-text-success': this.$store.state.basket.priceHistory.price === this.$store.state.basket.priceHistory.priceMin, 'has-text-danger': this.$store.state.basket.priceHistory.price == this.$store.state.basket.priceHistory.priceMax }">{{ this.$store.state.basket.priceHistory.price }} €</span></span></div>
+                <div class="column"><span class="nowrap">Min/Max: <span class="value">{{ this.$store.state.basket.priceHistory.priceMin }} € / {{ this.$store.state.basket.priceHistory.priceMax }} €</span></span></div>
               </div>
             </th>
             <th></th>
           </tr>
         </tfoot>
         <tbody>
-          <tr v-for="(basketItem, basketItemIndex) in basketItems" :key="basketItem.id">
+          <tr v-for="basketItem in this.$store.state.basket.basketItems" :key="basketItem.id">
             <td>
               <div class="columns">
                 <div class="column is-5"><a :href="basketItem.item.url">{{ basketItem.item.name.substring(0, 50) }}</a></div>
@@ -59,7 +59,7 @@
               </div>
             </td>
             <td>
-              <ion-icon class="is-clickable" name="trash-outline" @click="deleteBasketItem(basketItem, basketItemIndex)"></ion-icon>
+              <ion-icon class="is-clickable" name="trash-outline" @click="deleteBasketItem(basketItem)"></ion-icon>
             </td>
           </tr>
         </tbody>
@@ -74,55 +74,26 @@
 <script>
 import axios from 'axios'
 
-function refreshData (vm) {
-  axios.get(process.env.VUE_APP_API_ENDPOINT + '/basket/' + vm.$route.params.uuid)
-    .then(response => {
-      vm.basketItems = response.data.basketItems
-      vm.total = response.data.priceHistory.price
-      vm.min = response.data.priceHistory.priceMin
-      vm.max = response.data.priceHistory.priceMax
-      vm.willBeDeletedAt = response.data.willBeDeletedAt
-    })
-}
-
 export default {
   data () {
     return {
-      basketItems: this.$store.state.basket.basketItems,
-      total: this.$store.state.basket.priceHistory.price,
-      min: this.$store.state.basket.priceHistory.priceMin,
-      max: this.$store.state.basket.priceHistory.priceMax,
-      willBeDeletedAt: this.$store.state.basket.willBeDeletedAt,
       menuOpen: false
     }
   },
   methods: {
-    add: function () {
+    add () {
       this.$router.push('/basket/' + this.$route.params.uuid + '/basket-item')
     },
-    copyUrlToClipboard: function () {
-      var dummy = document.createElement('input')
-      document.body.appendChild(dummy)
-      dummy.value = window.location.href
-      dummy.select()
-      document.execCommand('copy')
-      document.body.removeChild(dummy)
-    },
-    deleteBasketItem: function (basketItem, basketItemIndex) {
+    deleteBasketItem (basketItem) {
       axios.delete(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/basket-item/' + basketItem.id)
-        .then(response => {
-          refreshData(this)
+        .then(() => {
+          this.$store.dispatch('fetchBasketByUuid', this.$route.params.uuid)
         })
     },
-    refreshWillBeDeletedAt: function () {
-      axios.get(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/refresh')
-        .then(response => {
-          refreshData(this)
-        })
-    },
-    deleteBasket: function () {
+    deleteBasket () {
       axios.delete(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid)
-        .then(response => {
+        .then(() => {
+          this.$store.dispatch('createNewBasket')
           this.$router.push('/')
         })
     }

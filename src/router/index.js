@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import axios from 'axios'
-import * as bulmaToast from 'bulma-toast'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -18,27 +16,7 @@ const routes = [
     path: '/basket/:uuid',
     name: 'Basket',
     component: () => import('../basket/views/Basket.vue'),
-    meta: { flowOrder: 2 },
-    beforeEnter: (to, from, next) => {
-      axios.get(process.env.VUE_APP_API_ENDPOINT + '/basket/' + to.params.uuid)
-        .then(response => {
-          store.dispatch('setBasket', response.data)
-          store.dispatch('addBookmark', to.params.uuid)
-          next()
-        })
-        .catch((error) => {
-          bulmaToast.toast({
-            message: `Failed to open basket ${to.params.uuid} - ${error.response ? error.response.statusText : error}`,
-            type: 'is-danger'
-          })
-
-          if (error.response && error.response.status === 404) {
-            store.dispatch('deleteBookmark', to.params.uuid)
-          }
-
-          next('/')
-        })
-    }
+    meta: { flowOrder: 2 }
   },
   {
     path: '/basket/:uuid/basket-item',
@@ -73,6 +51,20 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if ((!store.state.basket.uuid || store.state.basket.uuid === '') && to.params.uuid) {
+    store.dispatch('fetchBasketByUuid', to.params.uuid)
+      .then(() => {
+        next()
+      })
+      .catch(() => {
+        next('/')
+      })
+  } else {
+    next()
+  }
 })
 
 export default router

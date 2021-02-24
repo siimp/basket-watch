@@ -48,14 +48,15 @@ export default {
     }
   },
   methods: {
-    isValid: function () {
+    isValid () {
       return this.url && this.quantity > 0
     },
-    add: function () {
+    add () {
       if (this.isValid()) {
         axios.post(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/basket-item', { url: this.url, quantity: this.quantity })
-          .then(response => {
+          .then(() => {
             bulmaToast.toast({ message: 'Item added to basket' })
+            this.$store.dispatch('fetchBasketByUuid', this.$route.params.uuid)
             this.url = ''
             this.quantity = 1
           })
