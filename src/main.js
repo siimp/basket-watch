@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import './assets/main.scss'
 import * as bulmaToast from 'bulma-toast'
-import 'ionicons'
 
 Vue.config.productionTip = false
 Vue.config.ignoredElements = [/^ion-/]
