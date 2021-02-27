@@ -28,7 +28,7 @@
     <div class="columns is-mobile is-12">
       <div class="column">
         <button v-if="this.$store.state.basket.notification.subscribed" class="button is-danger max-width" @click="unsubscribe">Unsubscribe</button>
-        <button class="button is-info max-width" :disabled="!isValid()" @click="subscribe">Subscribe</button>
+        <button class="button is-info max-width" :disabled="!isValid" @click="subscribe">Subscribe</button>
       </div>
     </div>
   </div>
@@ -42,11 +42,12 @@ export default {
       emailInput: ''
     }
   },
-
-  methods: {
+  computed: {
     isValid () {
       return !!this.emailInput
-    },
+    }
+  },
+  methods: {
     subscribe () {
       this.$store.dispatch('subscribeNotifications', this.emailInput)
     },

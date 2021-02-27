@@ -29,7 +29,7 @@
   <div class="bottom max-width">
     <div class="columns is-mobile is-12">
       <div class="column">
-        <button class="button is-info max-width" :disabled="!isValid()" @click="add">Add</button>
+        <button class="button is-info max-width" :disabled="!isValid" @click="addItem">Add</button>
       </div>
     </div>
   </div>
@@ -47,26 +47,26 @@ export default {
       quantity: 1
     }
   },
-  methods: {
+  computed: {
     isValid () {
       return this.url && this.quantity > 0
-    },
-    add () {
-      if (this.isValid()) {
-        axios.post(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/basket-item', { url: this.url, quantity: this.quantity })
-          .then(() => {
-            bulmaToast.toast({ message: 'Item added to basket' })
-            this.$store.dispatch('fetchBasketByUuid', this.$route.params.uuid)
-            this.url = ''
-            this.quantity = 1
+    }
+  },
+  methods: {
+    addItem () {
+      axios.post(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid + '/basket-item', { url: this.url, quantity: this.quantity })
+        .then(() => {
+          bulmaToast.toast({ message: 'Item added' })
+          this.$store.dispatch('fetchBasketByUuid', this.$route.params.uuid)
+          this.url = ''
+          this.quantity = 1
+        })
+        .catch((error) => {
+          bulmaToast.toast({
+            message: `Failed to add item - ${error.response ? error.response.statusText : error}`,
+            type: 'is-danger'
           })
-          .catch((error) => {
-            bulmaToast.toast({
-              message: `Adding item failed - ${error.response ? error.response.statusText : error}`,
-              type: 'is-danger'
-            })
-          })
-      }
+        })
     }
   }
 }

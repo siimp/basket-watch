@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <router-link v-show="hasStoredBaskets()" to="/baskets">
+      <router-link v-show="hasStoredBaskets" to="/baskets">
         <ion-icon class="is-clickable" name="bookmarks-sharp"></ion-icon>
       </router-link>
     </div>
@@ -15,7 +15,6 @@
         </div>
       </section>
     </div>
-
     <div class="has-text-centered">
         <button class="button is-success" @click="create">Create a new basket</button>
     </div>
@@ -55,9 +54,11 @@ export default {
             type: 'is-danger'
           })
         })
-    },
+    }
+  },
+  computed: {
     hasStoredBaskets () {
-      return this.$store.state.bookmarks.length > 0
+      return !!this.$store.state.bookmarks && this.$store.state.bookmarks.length > 0
     }
   }
 }

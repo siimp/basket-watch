@@ -6,10 +6,10 @@
     </router-link>
   </div>
   <div class="baskets-list has-text-centered">
-    <h2 class="title">Stored Baskets</h2>
+    <h2 class="title">Baskets</h2>
     <div class="menu">
       <ul class="menu-list">
-          <li v-for="basket in baskets" :key="basket">
+          <li v-for="basket in this.$store.state.bookmarks" :key="basket">
             <router-link :to="'/basket/' + basket">{{ basket }}</router-link>
           </li>
       </ul>
@@ -17,16 +17,6 @@
   </div>
 </div>
 </template>
-
-<script>
-export default {
-  data: function () {
-    return {
-      baskets: this.$store.state.bookmarks
-    }
-  }
-}
-</script>
 
 <style scoped>
 .header {

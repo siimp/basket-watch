@@ -91,11 +91,8 @@ export default {
         })
     },
     deleteBasket () {
-      axios.delete(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.$route.params.uuid)
-        .then(() => {
-          this.$store.dispatch('createNewBasket')
-          this.$router.push('/')
-        })
+      this.$store.dispatch('deleteBasket', this.$route.params.uuid)
+      this.$router.push('/')
     }
   }
 }

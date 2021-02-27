@@ -5,33 +5,25 @@ import * as bulmaToast from 'bulma-toast'
 
 Vue.use(Vuex)
 
-const EMPTY_STATE = {
-  bookmarks: [],
-  basket: {
-    uuid: '',
-    notification: {
-      email: '',
-      subscribed: null
-    },
-    priceHistory: {}
-  }
+const EMPTY_BASKET = {
+  notification: {},
+  priceHistory: {}
 }
 
 const store = new Vuex.Store({
-  state: Object.assign({}, EMPTY_STATE),
+  state: {
+    bookmarks: [],
+    basket: Object.assign({}, EMPTY_BASKET)
+  },
   mutations: {
     _setBasket (state, basket) {
-      state.basket = Object.assign({}, EMPTY_STATE, basket)
+      state.basket = Object.assign({}, EMPTY_BASKET, basket)
     },
     _setNotification (state, notification) {
-      state.basket.notification = Object.assign({}, state.basket.notification, notification)
+      state.basket.notification = notification
     },
     _setBookmarks (state, bookmarks) {
-      if (!bookmarks) {
-        state.bookmarks = []
-      } else {
-        state.bookmarks = bookmarks
-      }
+      state.bookmarks = Object.assign([], bookmarks)
     },
     _addBookmark (state, uuid) {
       if (state.bookmarks.indexOf(uuid) === -1) {
@@ -70,6 +62,19 @@ const store = new Vuex.Store({
     },
     setBasket (context, basket) {
       context.commit('_setBasket', basket)
+    },
+    deleteBasket (context, uuid) {
+      axios.delete(process.env.VUE_APP_API_ENDPOINT + '/basket/' + uuid)
+        .then(() => {
+          context.commit('_deleteBookmark', uuid)
+          context.commit('_setBasket', {})
+        })
+        .catch((error) => {
+          bulmaToast.toast({
+            message: `Failed to delete basket ${uuid} - ${error.response ? error.response.statusText : error}`,
+            type: 'is-danger'
+          })
+        })
     },
     createNewBasket (context) {
       context.commit('_setBasket', {})
