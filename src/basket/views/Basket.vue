@@ -24,7 +24,13 @@
           <div class="menu">
             <div class="menu-list">
               <div>
-                <a href="#" v-on:click="deleteBasket">
+                <router-link :to="'/baskets'">
+                  <ion-icon class="is-clickable" name="bookmarks-outline"></ion-icon>
+                  Bookmarks
+                </router-link>
+              </div>
+              <div>
+                <a href="#" class="has-text-danger" v-on:click="deleteBasket">
                   <ion-icon name="trash-outline"></ion-icon>
                   Delete
                 </a>

@@ -28,6 +28,7 @@ const store = new Vuex.Store({
     _addBookmark (state, uuid) {
       if (state.bookmarks.indexOf(uuid) === -1) {
         state.bookmarks.push(uuid)
+        bulmaToast.toast({ message: 'Added basket to bookmarks' })
       }
       saveToLocalStorage(state.bookmarks)
     },

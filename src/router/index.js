@@ -16,19 +16,19 @@ const routes = [
     path: '/basket/:uuid',
     name: 'Basket',
     component: () => import('../basket/views/Basket.vue'),
-    meta: { flowOrder: 2 }
+    meta: { flowOrder: 3 }
   },
   {
     path: '/basket/:uuid/basket-item',
     name: 'BasketItem',
     component: () => import('../basketItem/views/BasketItem.vue'),
-    meta: { flowOrder: 3 }
+    meta: { flowOrder: 4 }
   },
   {
     path: '/basket/:uuid/notification',
     name: 'Notification',
     component: () => import('../notification/views/Notification.vue'),
-    meta: { flowOrder: 3 }
+    meta: { flowOrder: 4 }
   },
   {
     path: '/basket/:uuid/notification/unsubscribe',
