@@ -136,7 +136,7 @@ export default {
 .header span.title {
     bottom: 4px;
     position: relative;
-    margin-left: 0.5em;
+    margin-left: 0.8em;
 }
 .card {
     position: absolute;
