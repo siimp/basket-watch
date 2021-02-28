@@ -34,6 +34,7 @@
     "sass": "^1.26.10",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11",
-    "mockserver": "^3.1.1"
+    "mockserver": "^3.1.1",
+    "ionicons": "5.4.0"
   }
 }

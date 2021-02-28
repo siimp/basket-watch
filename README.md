@@ -15,3 +15,8 @@ npm run serve
 npm run build
 npm serve dist
 ```
+
+### Copy new version of ionicons
+```
+cp -r node_modules/ionicons/dist/ionicons/ public/
+```
