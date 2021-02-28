@@ -2,7 +2,7 @@
   <div>
     <div class="header">
       <router-link v-show="hasStoredBaskets" to="/baskets">
-        <ion-icon class="is-clickable" name="bookmarks-sharp"></ion-icon>
+        <ion-icon class="is-clickable" name="bookmark-outline"></ion-icon>
       </router-link>
     </div>
     <div>

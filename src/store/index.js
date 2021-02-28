@@ -6,8 +6,11 @@ import * as bulmaToast from 'bulma-toast'
 Vue.use(Vuex)
 
 const EMPTY_BASKET = {
-  notification: {},
-  priceHistory: {}
+  uuid: '',
+  priceHistory: {},
+  basketItems: [],
+  willBeDeletedAt: '',
+  notification: {}
 }
 
 const store = new Vuex.Store({

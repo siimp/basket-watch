@@ -25,7 +25,7 @@
             <div class="menu-list">
               <div>
                 <router-link :to="'/baskets'">
-                  <ion-icon class="is-clickable" name="bookmarks-outline"></ion-icon>
+                  <ion-icon class="is-clickable" name="bookmark-outline"></ion-icon>
                   Bookmarks
                 </router-link>
               </div>

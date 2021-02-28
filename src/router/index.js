@@ -54,7 +54,8 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if ((!store.state.basket.uuid || store.state.basket.uuid === '') && to.params.uuid) {
+  if ((to.params.uuid && (!store.state.basket.uuid || store.state.basket.uuid === '')) ||
+      (to.params.uuid && store.state.basket.uuid && to.params.uuid !== store.state.basket.uuid)) {
     store.dispatch('fetchBasketByUuid', to.params.uuid)
       .then(() => {
         next()

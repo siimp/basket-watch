@@ -15,8 +15,7 @@
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
     "vue-router": "^3.3.4",
-    "vuex": "^3.5.1",
-    "ionicons": "5.4.0"
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
