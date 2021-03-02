@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     hasStoredBaskets () {
-      return !!this.$store.state.bookmarks && this.$store.state.bookmarks.length > 0
+      return !!this.$store.state.bookmarks.bookmarks && this.$store.state.bookmarks.bookmarks.length > 0
     }
   }
 }

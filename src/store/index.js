@@ -15,7 +15,6 @@ const EMPTY_BASKET = {
 
 const store = new Vuex.Store({
   state: {
-    bookmarks: [],
     basket: Object.assign({}, EMPTY_BASKET)
   },
   mutations: {
@@ -24,22 +23,6 @@ const store = new Vuex.Store({
     },
     _setNotification (state, notification) {
       state.basket.notification = notification
-    },
-    _setBookmarks (state, bookmarks) {
-      state.bookmarks = Object.assign([], bookmarks)
-    },
-    _addBookmark (state, uuid) {
-      if (state.bookmarks.indexOf(uuid) === -1) {
-        state.bookmarks.push(uuid)
-        bulmaToast.toast({ message: 'Added basket to bookmarks' })
-      }
-      saveToLocalStorage(state.bookmarks)
-    },
-    _deleteBookmark (state, uuid) {
-      if (state.bookmarks.indexOf(uuid) > -1) {
-        state.bookmarks.splice(state.bookmarks.indexOf(uuid), 1)
-      }
-      saveToLocalStorage(state.bookmarks)
     }
   },
   actions: {
@@ -83,15 +66,6 @@ const store = new Vuex.Store({
     createNewBasket (context) {
       context.commit('_setBasket', {})
     },
-    setBookmarks (context, bookmarks) {
-      context.commit('_setBookmarks', bookmarks)
-    },
-    addBookmark (context, uuid) {
-      context.commit('_addBookmark', uuid)
-    },
-    deleteBookmark (context, uuid) {
-      context.commit('_deleteBookmark', uuid)
-    },
     subscribeNotifications (context, email) {
       axios.post(process.env.VUE_APP_API_ENDPOINT + '/basket/' + this.state.basket.uuid + '/notification', { email: email })
         .then(() => {
@@ -118,10 +92,45 @@ const store = new Vuex.Store({
           })
         })
     }
-  },
-  modules: {
   }
 })
+
+const bookmarksModule = {
+  state: {
+    bookmarks: []
+  },
+  mutations: {
+    _setBookmarks (state, bookmarks) {
+      state.bookmarks = Object.assign([], bookmarks)
+    },
+    _addBookmark (state, uuid) {
+      if (state.bookmarks.indexOf(uuid) === -1) {
+        state.bookmarks.push(uuid)
+        bulmaToast.toast({ message: 'Added basket to bookmarks' })
+      }
+      saveToLocalStorage(state.bookmarks)
+    },
+    _deleteBookmark (state, uuid) {
+      if (state.bookmarks.indexOf(uuid) > -1) {
+        state.bookmarks.splice(state.bookmarks.indexOf(uuid), 1)
+      }
+      saveToLocalStorage(state.bookmarks)
+    }
+  },
+  actions: {
+    setBookmarks (context, bookmarks) {
+      context.commit('_setBookmarks', bookmarks)
+    },
+    addBookmark (context, uuid) {
+      context.commit('_addBookmark', uuid)
+    },
+    deleteBookmark (context, uuid) {
+      context.commit('_deleteBookmark', uuid)
+    }
+  }
+}
+
+store.registerModule('bookmarks', bookmarksModule)
 
 const LOCAL_STORAGE_KEY_BASKETS = 'baskets'
 

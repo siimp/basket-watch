@@ -9,7 +9,7 @@
     <h2 class="title">Baskets</h2>
     <div class="menu">
       <ul class="menu-list">
-          <li v-for="basket in this.$store.state.bookmarks" :key="basket">
+          <li v-for="basket in this.$store.state.bookmarks.bookmarks" :key="basket">
             <router-link :to="'/basket/' + basket">{{ basket }}</router-link>
           </li>
       </ul>
