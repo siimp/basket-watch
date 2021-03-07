@@ -21,7 +21,7 @@
     <div class="platforms has-text-centered">
       <div>
         <section class="section">
-          <p><strong>Supported platforms</strong></p>
+          <p class="supported-platforms"><strong>Supported platforms</strong></p>
           <div class="container">
             <div class="columns">
               <div class="column">
@@ -78,6 +78,9 @@ export default {
 </script>
 
 <style scoped>
+.supported-platforms {
+  margin-bottom: 0.5em;
+}
 .column img.logo {
   max-height: 1.3em;
   margin-right: 0.5em;
