@@ -25,8 +25,7 @@
           <div class="container">
             <div class="columns">
               <div class="column">
-                <img class="logo" alt="Arvutitark logo" src="../assets/logo-at.png" />
-                <img class="logo" alt="1A logo" src="../assets/logo-1A.png" />
+                <img v-for="platform in platforms" :key="platform.name" class="logo" :alt="platform.name" :src="'data:image/png;base64,' + platform.image" />
               </div>
             </div>
           </div>
@@ -41,6 +40,11 @@ import axios from 'axios'
 import * as bulmaToast from 'bulma-toast'
 
 export default {
+  data: function () {
+    return {
+      platforms: []
+    }
+  },
   methods: {
     create () {
       axios.post(process.env.VUE_APP_API_ENDPOINT + '/basket')
@@ -60,6 +64,15 @@ export default {
     hasStoredBaskets () {
       return !!this.$store.state.bookmarks.bookmarks && this.$store.state.bookmarks.bookmarks.length > 0
     }
+  },
+  created () {
+    const platforms = this.platforms
+    axios.get(`${process.env.VUE_APP_API_ENDPOINT}/static/platforms.json`)
+      .then(response => {
+        response.data.forEach(e => {
+          platforms.push(e)
+        })
+      })
   }
 }
 </script>
