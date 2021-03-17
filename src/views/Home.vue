@@ -10,7 +10,7 @@
         <div class="container has-text-centered">
           <h1 class="title">Basket Watch</h1>
           <h2 class="subtitle">
-            A simple application that let's you to watch for <strong>price changes</strong> of the items you are wanting to buy.
+            A simple application that let's you to watch for price changes.
           </h2>
         </div>
       </section>
@@ -25,7 +25,8 @@
           <div class="container">
             <div class="columns">
               <div class="column">
-                <img v-for="platform in platforms" :key="platform.name" class="logo" :alt="platform.name" :src="'data:image/png;base64,' + platform.image" />
+                <span v-for="platform in platforms" :key="platform.name" class="logo"><i>{{platform.name}}</i></span>
+                <!--<img v-for="platform in platforms" :key="platform.name" class="logo" :alt="platform.name" :src="'data:image/png;base64,' + platform.image" />-->
               </div>
             </div>
           </div>
@@ -86,6 +87,12 @@ export default {
   margin-right: 0.5em;
   margin-left: 0.5em;
   box-shadow: 2px 2px 2px lightgray;
+}
+.column span.logo {
+  max-height: 1.3em;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+  padding: 0.5em;
 }
 .header {
   text-align: right;
