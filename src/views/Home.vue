@@ -26,7 +26,6 @@
             <div class="columns">
               <div class="column">
                 <span v-for="platform in platforms" :key="platform.name" class="logo"><i>{{platform.name}}</i></span>
-                <!--<img v-for="platform in platforms" :key="platform.name" class="logo" :alt="platform.name" :src="'data:image/png;base64,' + platform.image" />-->
               </div>
             </div>
           </div>
@@ -82,17 +81,9 @@ export default {
 .supported-platforms {
   margin-bottom: 0.5em;
 }
-.column img.logo {
-  max-height: 1.3em;
-  margin-right: 0.5em;
-  margin-left: 0.5em;
-  box-shadow: 2px 2px 2px lightgray;
-}
 .column span.logo {
-  max-height: 1.3em;
-  margin-right: 0.5em;
-  margin-left: 0.5em;
   padding: 0.5em;
+  display: inline-block;
 }
 .header {
   text-align: right;
