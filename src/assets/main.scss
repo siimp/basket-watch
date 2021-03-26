@@ -34,3 +34,8 @@ $slide-translate-x: 100vw;
 .card {
   border-radius: 0px;
 }
+
+// @creativebulma/bulma-tooltip overrides
+span[data-tooltip] {
+  border-bottom: none;
+}

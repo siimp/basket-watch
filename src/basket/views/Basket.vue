@@ -47,7 +47,7 @@
           <tr>
             <th>
               <div class="columns">
-                <div class="column is-7"><span class="nowrap">Total: <span class="value" v-bind:class="{ 'has-text-success': this.$store.state.basket.priceHistory.price === this.$store.state.basket.priceHistory.priceMin, 'has-text-danger': this.$store.state.basket.priceHistory.price == this.$store.state.basket.priceHistory.priceMax }">{{ this.$store.state.basket.priceHistory.price }} €</span></span></div>
+                <div class="column is-7"><span class="nowrap">Total: <span :data-tooltip="this.$store.state.basket.priceHistory.priceAt.split('T')[0]" class="value" v-bind:class="{ 'has-text-success': this.$store.state.basket.priceHistory.price === this.$store.state.basket.priceHistory.priceMin, 'has-text-danger': this.$store.state.basket.priceHistory.price == this.$store.state.basket.priceHistory.priceMax }">{{ this.$store.state.basket.priceHistory.price }} €</span></span></div>
                 <div class="column">
                   <span class="nowrap">Min/Max:
                     <span class="value">
@@ -67,8 +67,14 @@
             <td>
               <div class="columns">
                 <div class="column is-5"><a :href="basketItem.item.url">{{ basketItem.item.name.substring(0, 50) }}</a></div>
-                <div class="column is-2"><span class="nowrap">Price: <span v-bind:class="{ 'has-text-success': basketItem.item.priceHistory.price === basketItem.item.priceHistory.priceMin, 'has-text-danger': basketItem.item.priceHistory.price === basketItem.item.priceHistory.priceMax }">{{ basketItem.item.priceHistory.price }} €</span></span></div>
-                <div class="column"><span class="nowrap">Min/Max: {{ basketItem.item.priceHistory.priceMin }} € / {{ basketItem.item.priceHistory.priceMax }} €</span></div>
+                <div class="column is-2"><span class="nowrap">Price: <span :data-tooltip="basketItem.item.priceHistory.priceAt.split('T')[0]" v-bind:class="{ 'has-text-success': basketItem.item.priceHistory.price === basketItem.item.priceHistory.priceMin, 'has-text-danger': basketItem.item.priceHistory.price === basketItem.item.priceHistory.priceMax }">{{ basketItem.item.priceHistory.price }} €</span></span></div>
+                <div class="column">
+                  <span class="nowrap">Min/Max:
+                    <span :data-tooltip="basketItem.item.priceHistory.priceMinAt.split('T')[0]">{{ basketItem.item.priceHistory.priceMin }} €</span>
+                    /
+                    <span :data-tooltip="basketItem.item.priceHistory.priceMaxAt.split('T')[0]">{{ basketItem.item.priceHistory.priceMax }} €</span>
+                    </span>
+                  </div>
                 <div class="column quantity"><span class="nowrap">Quantity: {{ basketItem.quantity }}</span></div>
               </div>
             </td>
