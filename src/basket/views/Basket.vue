@@ -48,7 +48,15 @@
             <th>
               <div class="columns">
                 <div class="column is-7"><span class="nowrap">Total: <span class="value" v-bind:class="{ 'has-text-success': this.$store.state.basket.priceHistory.price === this.$store.state.basket.priceHistory.priceMin, 'has-text-danger': this.$store.state.basket.priceHistory.price == this.$store.state.basket.priceHistory.priceMax }">{{ this.$store.state.basket.priceHistory.price }} €</span></span></div>
-                <div class="column"><span class="nowrap">Min/Max: <span class="value">{{ this.$store.state.basket.priceHistory.priceMin }} € / {{ this.$store.state.basket.priceHistory.priceMax }} €</span></span></div>
+                <div class="column">
+                  <span class="nowrap">Min/Max:
+                    <span class="value">
+                      <span :data-tooltip="this.$store.state.basket.priceHistory.priceMinAt.split('T')[0]">{{ this.$store.state.basket.priceHistory.priceMin }} €</span>
+                      /
+                      <span :data-tooltip="this.$store.state.basket.priceHistory.priceMaxAt.split('T')[0]">{{ this.$store.state.basket.priceHistory.priceMax }} €</span>
+                    </span>
+                  </span>
+                </div>
               </div>
             </th>
             <th></th>

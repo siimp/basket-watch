@@ -9,6 +9,7 @@
     "mockserver": "mockserver -p 8888 -m mockserver"
   },
   "dependencies": {
+    "@creativebulma/bulma-tooltip": "^1.2.0",
     "axios": "^0.21.1",
     "bulma": "^0.9.2",
     "bulma-toast": "^2.2.0",
