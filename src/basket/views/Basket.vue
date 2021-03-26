@@ -47,13 +47,13 @@
           <tr>
             <th>
               <div class="columns">
-                <div class="column is-7"><span class="nowrap">Total: <span :data-tooltip="this.$store.state.basket.priceHistory.priceAt.split('T')[0]" class="value" v-bind:class="{ 'has-text-success': this.$store.state.basket.priceHistory.price === this.$store.state.basket.priceHistory.priceMin, 'has-text-danger': this.$store.state.basket.priceHistory.price == this.$store.state.basket.priceHistory.priceMax }">{{ this.$store.state.basket.priceHistory.price }} €</span></span></div>
+                <div class="column is-7"><span class="nowrap">Total: <span :data-tooltip="'total price at ' + this.$store.state.basket.priceHistory.priceAt.split('T')[0]" class="value" v-bind:class="{ 'has-text-success': this.$store.state.basket.priceHistory.price === this.$store.state.basket.priceHistory.priceMin, 'has-text-danger': this.$store.state.basket.priceHistory.price == this.$store.state.basket.priceHistory.priceMax }">{{ this.$store.state.basket.priceHistory.price }} €</span></span></div>
                 <div class="column">
-                  <span class="nowrap">Min/Max:
+                  <span class="nowrap">
                     <span class="value">
-                      <span :data-tooltip="this.$store.state.basket.priceHistory.priceMinAt.split('T')[0]">{{ this.$store.state.basket.priceHistory.priceMin }} €</span>
+                      <span :data-tooltip="'total min price at ' + this.$store.state.basket.priceHistory.priceMinAt.split('T')[0]">{{ this.$store.state.basket.priceHistory.priceMin }} €</span>
                       /
-                      <span :data-tooltip="this.$store.state.basket.priceHistory.priceMaxAt.split('T')[0]">{{ this.$store.state.basket.priceHistory.priceMax }} €</span>
+                      <span :data-tooltip="'total max price at ' + this.$store.state.basket.priceHistory.priceMaxAt.split('T')[0]">{{ this.$store.state.basket.priceHistory.priceMax }} €</span>
                     </span>
                   </span>
                 </div>
@@ -67,12 +67,12 @@
             <td>
               <div class="columns">
                 <div class="column is-5"><a :href="basketItem.item.url">{{ basketItem.item.name.substring(0, 50) }}</a></div>
-                <div class="column is-2"><span class="nowrap">Price: <span :data-tooltip="basketItem.item.priceHistory.priceAt.split('T')[0]" v-bind:class="{ 'has-text-success': basketItem.item.priceHistory.price === basketItem.item.priceHistory.priceMin, 'has-text-danger': basketItem.item.priceHistory.price === basketItem.item.priceHistory.priceMax }">{{ basketItem.item.priceHistory.price }} €</span></span></div>
+                <div class="column is-2"><span class="nowrap"><span :data-tooltip="'price at ' + basketItem.item.priceHistory.priceAt.split('T')[0]" v-bind:class="{ 'has-text-success': basketItem.item.priceHistory.price === basketItem.item.priceHistory.priceMin, 'has-text-danger': basketItem.item.priceHistory.price === basketItem.item.priceHistory.priceMax }">{{ basketItem.item.priceHistory.price }} €</span></span></div>
                 <div class="column">
-                  <span class="nowrap">Min/Max:
-                    <span :data-tooltip="basketItem.item.priceHistory.priceMinAt.split('T')[0]">{{ basketItem.item.priceHistory.priceMin }} €</span>
+                  <span class="nowrap">
+                    <span :data-tooltip="'min price at ' + basketItem.item.priceHistory.priceMinAt.split('T')[0]">{{ basketItem.item.priceHistory.priceMin }} €</span>
                     /
-                    <span :data-tooltip="basketItem.item.priceHistory.priceMaxAt.split('T')[0]">{{ basketItem.item.priceHistory.priceMax }} €</span>
+                    <span :data-tooltip="'max price at ' + basketItem.item.priceHistory.priceMaxAt.split('T')[0]">{{ basketItem.item.priceHistory.priceMax }} €</span>
                     </span>
                   </div>
                 <div class="column quantity"><span class="nowrap">Quantity: {{ basketItem.quantity }}</span></div>
